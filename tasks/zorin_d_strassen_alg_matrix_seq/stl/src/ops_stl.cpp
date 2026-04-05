@@ -180,18 +180,14 @@ void StrassenTopStl(const double *a, std::size_t a_stride, const double *b, std:
   auto f1 = std::async(std::launch::async, [&] {
     ComputeProduct(a11, a_stride, a22, a_stride, 1.0, b11, b_stride, b22, b_stride, 1.0, m1, half);
   });
-  auto f2 = std::async(std::launch::async, [&] {
-    ComputeProductSingleLeft(a21, a_stride, a22, a_stride, 1.0, b11, b_stride, m2, half);
-  });
-  auto f3 = std::async(std::launch::async, [&] {
-    ComputeProductSingle(a11, a_stride, b12, b_stride, b22, b_stride, -1.0, m3, half);
-  });
-  auto f4 = std::async(std::launch::async, [&] {
-    ComputeProductSingle(a22, a_stride, b21, b_stride, b11, b_stride, -1.0, m4, half);
-  });
-  auto f5 = std::async(std::launch::async, [&] {
-    ComputeProductSingleLeft(a11, a_stride, a12, a_stride, 1.0, b22, b_stride, m5, half);
-  });
+  auto f2 = std::async(std::launch::async,
+                       [&] { ComputeProductSingleLeft(a21, a_stride, a22, a_stride, 1.0, b11, b_stride, m2, half); });
+  auto f3 = std::async(std::launch::async,
+                       [&] { ComputeProductSingle(a11, a_stride, b12, b_stride, b22, b_stride, -1.0, m3, half); });
+  auto f4 = std::async(std::launch::async,
+                       [&] { ComputeProductSingle(a22, a_stride, b21, b_stride, b11, b_stride, -1.0, m4, half); });
+  auto f5 = std::async(std::launch::async,
+                       [&] { ComputeProductSingleLeft(a11, a_stride, a12, a_stride, 1.0, b22, b_stride, m5, half); });
   auto f6 = std::async(std::launch::async, [&] {
     ComputeProduct(a21, a_stride, a11, a_stride, -1.0, b11, b_stride, b12, b_stride, 1.0, m6, half);
   });
